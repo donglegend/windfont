@@ -65,11 +65,21 @@ var Wind = (function (){
 				s.ele.innerHTML = "";
 			}
 			var curText = s.ele.innerHTML;
-			curText += s.contentText.charAt(s.stepIndex);
+
+			var curChart = s.contentText.charAt(s.stepIndex);
+	       	var nextFourChars = s.contentText.substr(s.stepIndex,4);
+	       	if(nextFourChars=='<BR>' || nextFourChars=='<br>'){
+	       		curChart  = '<BR>';
+	       		s.stepIndex+=3;
+	       	}
+
+			curText += curChart;
 			s.ele.innerHTML = curText;
 			if(s.stepIndex < s.stepSum-1){
 				s.stepIndex++;
 				requestAnimationFrame(s.run.bind(s));
+			}else{
+				cancelAnimationFrame(s.run.bind(s));
 			}
 		}
 	}
@@ -82,13 +92,15 @@ var Wind = (function (){
 })();
 
 
-var ops = {
-	"ele": "Wind",
-	"contentText": "这里讲述的是一段可歌可泣可笑可爱的草根崛起史，一个物质要求宁滥勿缺的开朗少年行。一段可歌可泣可笑可爱的草根崛起史。 一个物质要求宁滥勿缺的开朗少年行。 书院后山里永恒回荡着他疑惑的声音： 宁可永劫受沉沦，不从诸圣求解脱？ ……..."
-}
-
-loadEvent(function (){
+function main(){
+	var txt = getEleById("txt").innerHTML;
+	var ops = {
+		"ele": "Wind",
+		"contentText": txt
+	}
 	var myWind = new Wind(ops);
 	myWind.run();
-})
+}
+
+loadEvent(main)
 
