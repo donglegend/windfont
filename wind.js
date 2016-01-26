@@ -46,6 +46,7 @@ var Wind = (function (){
 		this.stepIndex = 0;
 		this.stepSum = 0;
 		this.init = true;
+		this.timer = null;
 		if (this === window){
 			return new Wind(conf);
 		}
@@ -77,9 +78,9 @@ var Wind = (function (){
 			s.ele.innerHTML = curText;
 			if(s.stepIndex < s.stepSum-1){
 				s.stepIndex++;
-				requestAnimationFrame(s.run.bind(s));
+				s.timer = requestAnimationFrame(s.run.bind(s));
 			}else{
-				cancelAnimationFrame(s.run.bind(s));
+				cancelAnimationFrame(s.timer);
 			}
 		}
 	}
