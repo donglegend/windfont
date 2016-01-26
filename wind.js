@@ -102,5 +102,5 @@ function main(){
 	myWind.run();
 }
 
-loadEvent(main)
+loadEvent(main);
 
